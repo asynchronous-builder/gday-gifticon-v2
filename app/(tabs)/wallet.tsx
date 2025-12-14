@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Badge, BadgeProps } from '@/components/ui/Badge';
 import { mockGifticons } from '@/constants/data';
 import { cn } from '@/lib/utils';
-// import { router } from 'expo-router'; // Removed for debugging
+import { useRouter } from 'expo-router';
 
 // Helper for status badges
 const getStatusBadge = (status: string): { variant: BadgeProps['variant'], label: string } => {
@@ -32,7 +32,7 @@ const getDaysUntilExpiry = (expiryDate: string) => {
 const cardShadows = ['shadow-card', 'shadow-card-pink', 'shadow-card-yellow', 'shadow-card-mint'];
 
 export default function WalletScreen() {
-    // router is removed
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState<'received' | 'purchased'>('received');
 
     const gifticons = mockGifticons[activeTab];
@@ -109,7 +109,7 @@ export default function WalletScreen() {
                             <Button 
                                 variant="yellow" 
                                 label={activeTab === "received" ? "Share your profile" : "Buy your first Gifticon"} 
-                                onPress={() => console.log('Navigate to send-gift')}
+                                onPress={() => router.push('/send-gift')}
                             />
                         </View>
                     ) : (
@@ -179,7 +179,7 @@ export default function WalletScreen() {
                                                         label="Redeem" 
                                                         icon={QrCode} 
                                                         className="h-10 px-4"
-                                                        onPress={() => console.log('Navigate to redeem', item.id)}
+                                                        onPress={() => router.push(`/redeem/${item.id}`)}
                                                     />
                                                 )}
                                             </View>
